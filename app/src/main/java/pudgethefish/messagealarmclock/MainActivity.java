@@ -1,5 +1,6 @@
 package pudgethefish.messagealarmclock;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
@@ -33,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
 
     public static class TimePickerFragment extends DialogFragment
             implements TimePickerDialog.OnTimeSetListener {
+        private Context mcontext;
 
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -42,8 +44,8 @@ public class MainActivity extends AppCompatActivity {
             int minute = c.get(Calendar.MINUTE);
 
             // Create a new instance of TimePickerDialog and return it
-            return new TimePickerDialog(getActivity(), this, hour, minute,
-                    DateFormat.is24HourFormat(getActivity()));
+            return new TimePickerDialog(getActivity(), android.R.style.Theme_Holo, this, hour,
+                    minute, DateFormat.is24HourFormat(getActivity()));
         }
 
         public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
