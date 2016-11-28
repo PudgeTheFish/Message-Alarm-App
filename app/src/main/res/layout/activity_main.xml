@@ -27,8 +27,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight=".8"
                 android:id="@+id/time_button"
-                android:gravity="left|center_vertical"
-                android:onClick="showTimePickerDialog"/>
+                android:gravity="left|center_vertical"/>
 
             <Button
                 android:text="X"
