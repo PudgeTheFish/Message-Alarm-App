@@ -3,5 +3,6 @@
     <color name="colorPrimary">#1c4645</color>
     <color name="colorPrimaryDark">#183635</color>
     <color name="colorAccent">#e3b9ba</color>
-    <color name="colorButtonNormal">#2d2d2d</color>
+    <color name="colorButtonNormal">#192926</color>
+    <color name="colorCancelAlarm">#282828</color>
 </resources>

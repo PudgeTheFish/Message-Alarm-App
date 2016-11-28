@@ -3,6 +3,7 @@ package pudgethefish.messagealarmclock;
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.text.format.DateFormat;
@@ -13,12 +14,27 @@ import java.util.Calendar;
 
 
 
-public class TimePickerFragment extends DialogFragment
-        implements TimePickerDialog.OnTimeSetListener {
+public class TimePickerFragment extends DialogFragment{
 
-    //private Activity mActivity;
-    //private TimePickerDialog.OnTimeSetListener mListener;
+    private Activity mActivity;
+    private TimePickerDialog.OnTimeSetListener mListener;
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+        if (context instanceof Activity){
+            mActivity=(Activity) context;
+        }
+
+        // This error will remind you to implement an OnTimeSetListener
+        //   in your Activity if you forget
+        try {
+            mListener = (TimePickerDialog.OnTimeSetListener) mActivity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(mActivity.toString() + " must implement OnTimeSetListener");
+        }
+    }
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -28,30 +44,9 @@ public class TimePickerFragment extends DialogFragment
         int minute = c.get(Calendar.MINUTE);
 
         // Create a new instance of TimePickerDialog and return it
-        return new TimePickerDialog(getActivity(), android.R.style.Theme_Holo, this, hour,
+        return new TimePickerDialog(mActivity, android.R.style.Theme_Holo, mListener, hour,
                 minute, DateFormat.is24HourFormat(getActivity()));
     }
 
-    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-        // Do something with the time chosen by the user
-        String hour_string = String.valueOf(hourOfDay);
-        String minute_string = String.valueOf(minute);
-        String am_pm = "AM";
 
-        if (hourOfDay > 12){
-            hour_string = String.valueOf(hourOfDay - 12);
-        }
-        if (hourOfDay > 11){
-            am_pm = "PM";
-        }
-        if (hourOfDay == 0){
-            hour_string = "12";
-        }
-        if (minute < 10){
-            minute_string = "0" + minute_string;
-        }
-        Button alarm_butt = (Button) getActivity().findViewById(R.id.time_button);
-        alarm_butt.setText(hour_string + ":" + minute_string + " " + am_pm);
-
-    }
 }
