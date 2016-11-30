@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity implements TimePickerDialog.
     //to make our alarm manager
     AlarmManager alarm_manager;
     private PendingIntent pending_intent;
-    private Button alarm_butt;
+    private Button alarm_butt, off_butt;
     private AlarmReceiver alarm;
     private Calendar cal;
     private Intent myIntent;
@@ -46,6 +46,7 @@ public class MainActivity extends AppCompatActivity implements TimePickerDialog.
 
         //turn the alarm on
         alarm_butt = (Button) findViewById(R.id.time_button);
+        off_butt = (Button) findViewById(R.id.cancel_button);
 
         alarm_butt.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,14 +54,15 @@ public class MainActivity extends AppCompatActivity implements TimePickerDialog.
 
                 DialogFragment newFragment = new TimePickerFragment();
                 newFragment.show(getSupportFragmentManager(), "timePicker");
+                int mColor = ContextCompat.getColor(context, R.color.colorButtonNormal);
+                alarm_butt.setBackgroundColor(mColor);
+                off_butt.setBackgroundColor(mColor);
 
             }
         });
 
 
         //turn the alarm off
-        Button off_butt = (Button) findViewById(R.id.cancel_button);
-
         off_butt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -68,6 +70,7 @@ public class MainActivity extends AppCompatActivity implements TimePickerDialog.
 
                 int mColor = ContextCompat.getColor(context, R.color.colorCancelAlarm);
                 alarm_butt.setBackgroundColor(mColor);
+                off_butt.setBackgroundColor(mColor);
             }
         });
 

@@ -9,7 +9,10 @@ import android.util.Log;
 public class AlarmReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
-        Log.e("We are in the receiver", "wooo");
+        Log.wtf("We are in the receiver", "wooo");
 
+        Intent service_intent = new Intent(context, RingtonePlayingService.class);
+
+        context.startService(service_intent);
     }
 }
