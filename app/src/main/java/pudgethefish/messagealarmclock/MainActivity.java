@@ -66,6 +66,7 @@ public class MainActivity extends AppCompatActivity implements TimePickerDialog.
         off_butt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //cancel the pending alarm
                 alarm_manager.cancel(pending_intent);
 
                 int mColor = ContextCompat.getColor(context, R.color.colorCancelAlarm);
