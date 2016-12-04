@@ -71,6 +71,12 @@ public class MainActivity extends AppCompatActivity implements TimePickerDialog.
                 int mColor = ContextCompat.getColor(context, R.color.colorCancelAlarm);
                 alarm_butt.setBackgroundColor(mColor);
                 off_butt.setBackgroundColor(mColor);
+
+                //Stop the ringtone, remove this later*******
+
+                //put extra string into my intent, tells app alarm off was pressed
+                myIntent.putExtra("extra", false);
+                sendBroadcast(myIntent);
             }
         });
 
@@ -101,6 +107,11 @@ public class MainActivity extends AppCompatActivity implements TimePickerDialog.
         Button alarm_butt = (Button) findViewById(R.id.time_button);
         alarm_butt.setText(hour_string + ":" + minute_string + " " + am_pm);
 
+        //put in extra string into my intent
+        //tells the app that you pressed alarm on
+        myIntent.putExtra("extra", true);
+
+        //create a pending intent that delays intent until alarm time
         pending_intent = PendingIntent.getBroadcast(MainActivity.this, 0, myIntent,
                 PendingIntent.FLAG_UPDATE_CURRENT);
 
