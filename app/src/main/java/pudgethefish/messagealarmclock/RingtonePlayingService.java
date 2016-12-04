@@ -2,6 +2,7 @@ package pudgethefish.messagealarmclock;
 
 import android.app.Notification;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
 import android.media.MediaPlayer;
@@ -32,16 +33,7 @@ public class RingtonePlayingService extends Service {
         Log.i("LocalService", "Received start id " + startId + ": " + intent);
 
         //fetch the extra bool values
-        boolean state = intent.getExtras().getBoolean("extra");
-
-        //notification
-        NotificationManager notify_manager = (NotificationManager)
-                getSystemService(NOTIFICATION_SERVICE);
-        //set up an intent that goes to the main activity
-        Intent intent_main_activity = new Intent(this.getApplicationContext(), MainActivity.class);
-        //make the notification parameters
-        Notification notification_popup = new Notification.Builder(this)
-                .setContentTitle("an alarm is going off!").build();
+        boolean state = intent.getExtras().getBoolean("extra");        
 
         if (state){
             startId = 1;
@@ -49,7 +41,6 @@ public class RingtonePlayingService extends Service {
         else{
             startId = 0;
         }
-
 
         //if there is no music playing and the user pressed alarm on
         //music should start playing
@@ -59,6 +50,23 @@ public class RingtonePlayingService extends Service {
 
             this.isRunning = true;
             this.startId = 0;
+
+            //notification
+            NotificationManager notify_manager = (NotificationManager)
+                    getSystemService(NOTIFICATION_SERVICE);
+            //set up an intent that goes to the main activity
+            Intent intent_main_activity = new Intent(this.getApplicationContext(), MainActivity.class);
+            //set up pending intent
+            PendingIntent pending_intent_main_activity = PendingIntent.getActivity(this, 0,
+                    intent_main_activity, 0);
+            //make the notification parameters
+            Notification notification_popup = new Notification.Builder(this)
+                    .setContentTitle("an alarm is going off!")
+                    .setSmallIcon(R.mipmap.ic_launcher)
+                    .setContentText("Click me!").setContentIntent(pending_intent_main_activity)
+                    .setAutoCancel(true).build();
+            //set up notification call command
+            notify_manager.notify(0, notification_popup);
         }
         //if there is music playing and the user pressed alarm off
         //music should stop playing
