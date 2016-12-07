@@ -46,6 +46,7 @@ public class RingtonePlayingService extends Service {
         //music should start playing
         if (!this.isRunning && startId==1){
             media_song = MediaPlayer.create(this, R.raw.arab);
+            media_song.setLooping(true);
             media_song.start();
 
             this.isRunning = true;
